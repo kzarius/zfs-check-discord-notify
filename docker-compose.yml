@@ -1,0 +1,17 @@
+services:
+
+  alpine:
+    image: alpine:3
+    environment:
+      TZ: ${TIMEZONE}
+      # The ZFS Pool names, separated by commas.
+      POOL_NAMES: ${POOL_NAMES}
+      # Labels for the Discord messages.
+      DEVICE_NAME: ${DEVICE_NAME}
+      DEVICE_DISCORD_ICON: ${DEVICE_DISCORD_ICON}
+      # Discord webhook URLs.
+      ERROR_REPORT_WEBHOOK_URL: ${ERROR_REPORT_WEBHOOK_URL} # Critical events will be sent here.
+      DISK_HEALTH_WEBHOOK_URL: ${DISK_HEALTH_WEBHOOK_URL} # This is where any report will be filed.
+    volumes:
+      - ./scripts:/scripts
+    tty: true
