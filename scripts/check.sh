@@ -1,9 +1,11 @@
 #!/bin/bash
 
+echo >&2 "Beginning zpool scrub checker."
+
 ### CONFIGURATION -
 
-# Pool names (array):
-POOLS_NAME="${POOLS_NAME}"
+# Convert the ENV string to an array:
+IFS=' ' read -a POOL_NAMES <<< "$POOL_NAMES"
 
 # Discord config.
 # This webhook points to a channel that only errors will be sent to,
@@ -29,10 +31,15 @@ scrub_expiration_days="32"
 # Get date.
 current_date=$(date +%s)
 
+# Let's check if this system even has ZFS.
+if [[ ! $(command -v zpool 2>&1 >/dev/null) ]]; then
+    echo >&2 "zpool was not found. Exiting."
+    exit 1
+fi
 
 
 # Iterate through the pools.
-for pool_name in "${POOLS_NAME[@]}"
+for pool_name in "${POOL_NAMES[@]}"
 do
 
 

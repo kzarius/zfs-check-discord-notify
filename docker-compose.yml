@@ -4,7 +4,7 @@ services:
     image: alpine:3
     environment:
       TZ: ${TIMEZONE}
-      # The ZFS Pool names, separated by commas.
+      # The ZFS Pool names, separated by spaces.
       POOL_NAMES: ${POOL_NAMES}
       # Labels for the Discord messages.
       DEVICE_NAME: ${DEVICE_NAME}
